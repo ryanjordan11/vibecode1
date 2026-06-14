@@ -6,42 +6,117 @@
   <title>Free Vibe Coding</title>
   <style>
     :root {
-      --bg: #0a0a1a;
-      --surface: #12122a;
-      --accent: #7c3aed;
-      --accent2: #ec4899;
-      --text: #e2e8f0;
-      --muted: #64748b;
+      --black: #000;
+      --near-black: #0a0a0a;
+      --dark: #111;
+      --white: #fff;
+      --muted: #888;
+      --yellow: #e5ff00;
+      --yellow-dim: rgba(229, 255, 0, 0.1);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: var(--black);
+      color: var(--white);
       line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* Animated background */
-    .bg-grid {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image:
-        linear-gradient(rgba(124, 58, 237, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(124, 58, 237, 0.05) 1px, transparent 1px);
-      background-size: 60px 60px;
-      z-index: 0;
     }
 
     .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 0 24px;
-      position: relative;
-      z-index: 1;
     }
 
-    /* Hero */
+    .container-wide {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Sections */
+    .section {
+      padding: 120px 0;
+    }
+
+    .section-dark {
+      background: var(--near-black);
+    }
+
+    .section h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .section .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 64px;
+      line-height: 1.7;
+    }
+
+    .label {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .yellow-line {
+      width: 48px;
+      height: 3px;
+      background: var(--yellow);
+      margin-bottom: 24px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 16px 48px;
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-yellow {
+      background: var(--yellow);
+      color: var(--black);
+    }
+
+    .btn-yellow:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 40px rgba(229, 255, 0, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.2);
+      margin-left: 16px;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 600px) {
+      .btn-group { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+      .btn-outline { margin-left: 0; }
+    }
+
+    /* === Hero === */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -50,221 +125,116 @@
       align-items: center;
       text-align: center;
       padding: 80px 0;
+      position: relative;
     }
 
-    .badge {
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(229, 255, 0, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
       display: inline-block;
       padding: 8px 20px;
+      border: 1px solid rgba(229, 255, 0, 0.3);
       border-radius: 999px;
-      font-size: 14px;
-      font-weight: 600;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--yellow);
       margin-bottom: 32px;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     .hero h1 {
-      font-size: clamp(48px, 10vw, 96px);
+      font-size: clamp(56px, 12vw, 120px);
       font-weight: 900;
-      line-height: 1.05;
+      line-height: 1.0;
       margin-bottom: 24px;
-      background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      letter-spacing: -0.03em;
+      position: relative;
+    }
+
+    .hero h1 span {
+      color: var(--yellow);
     }
 
     .hero p {
       font-size: 20px;
       color: var(--muted);
-      max-width: 560px;
-      margin: 0 auto 40px;
+      max-width: 520px;
+      margin: 0 auto 48px;
+      position: relative;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 16px 48px;
-      border-radius: 12px;
-      font-size: 18px;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s ease;
+    /* === Tutorial === */
+    .tutorial-step {
+      padding: 48px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #fff;
-      box-shadow: 0 4px 30px rgba(124, 58, 237, 0.4);
+    .tutorial-step:first-child {
+      padding-top: 0;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 40px rgba(124, 58, 237, 0.6);
+    .tutorial-step:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
-    .btn-outline {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.15);
-      margin-left: 16px;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      background: rgba(124, 58, 237, 0.1);
-    }
-
-    @media (max-width: 600px) {
-      .hero .btn-group {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-      .btn-outline { margin-left: 0; }
-    }
-
-    /* Sections */
-    section {
-      padding: 100px 0;
-    }
-
-    section h2 {
-      font-size: 36px;
-      font-weight: 800;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
-    section .subtitle {
-      text-align: center;
-      color: var(--muted);
-      font-size: 18px;
-      max-width: 500px;
-      margin: 0 auto 60px;
-    }
-
-    /* Features */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-    }
-
-    .feature-card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 32px 24px;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .feature-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-    }
-
-    .feature-icon {
-      font-size: 40px;
+    .tutorial-step .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
       margin-bottom: 16px;
     }
 
-    .feature-card h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .feature-card p {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    /* How it works */
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .step {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-    }
-
-    .step-num {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
+    .tutorial-step .step-number {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: var(--yellow);
+      color: var(--black);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 20px;
-    }
-
-    .step h3 {
+      font-weight: 900;
       font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
+      flex-shrink: 0;
     }
 
-    .step p {
+    .tutorial-step h3 {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .tutorial-step > p {
       color: var(--muted);
-      font-size: 15px;
+      font-size: 16px;
+      margin-bottom: 24px;
+      max-width: 560px;
     }
 
-    /* Tutorial */
-    .tutorial-card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 32px;
-    }
-
-    .tutorial-card:last-child {
-      margin-bottom: 0;
-    }
-
-    .tutorial-card .label {
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      margin-bottom: 12px;
-    }
-
-    .tutorial-card h3 {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .tutorial-card p {
-      color: var(--muted);
-      font-size: 15px;
-      margin-bottom: 20px;
+    .tutorial-step a {
+      color: var(--yellow);
+      text-decoration: underline;
     }
 
     .code-block {
       display: inline-block;
-      background: rgba(124, 58, 237, 0.15);
-      border: 1px solid rgba(124, 58, 237, 0.25);
-      border-radius: 10px;
-      padding: 12px 20px;
-      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 14px 24px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
       font-size: 15px;
-      color: var(--accent2);
+      color: var(--yellow);
       margin-bottom: 0;
     }
 
@@ -272,9 +242,9 @@
       position: relative;
       width: 100%;
       padding-bottom: 56.25%;
-      border-radius: 12px;
       overflow: hidden;
-      background: #000;
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.06);
     }
 
     .video-wrapper iframe {
@@ -285,47 +255,142 @@
       border: none;
     }
 
-    /* CTA */
-    .cta-section {
+    /* === Feature rows === */
+    .feature-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      padding: 48px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .feature-row:first-child {
+      padding-top: 0;
+    }
+
+    .feature-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .feature-row .icon {
+      font-size: 36px;
+      line-height: 1;
+    }
+
+    .feature-row h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .feature-row p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* === Steps (how it works) === */
+    .how-step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 24px;
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .how-step:first-child {
+      padding-top: 0;
+    }
+
+    .how-step:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .how-step .num {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--yellow);
+      line-height: 1;
+    }
+
+    .how-step h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .how-step p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    /* === Free section === */
+    .free-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .free-item {
+      background: var(--near-black);
+      padding: 40px 32px;
+    }
+
+    .free-item h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .free-item p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .free-grid { grid-template-columns: 1fr; }
+    }
+
+    /* === CTA === */
+    .cta {
       text-align: center;
-      padding: 80px 0;
+      padding: 140px 0;
     }
 
-    .cta-section h2 {
-      font-size: 42px;
-      margin-bottom: 16px;
+    .cta h2 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 900;
+      margin-bottom: 20px;
     }
 
-    .cta-section p {
+    .cta h2 span {
+      color: var(--yellow);
+    }
+
+    .cta p {
       color: var(--muted);
       font-size: 18px;
-      margin-bottom: 40px;
+      max-width: 480px;
+      margin: 0 auto 40px;
     }
 
-    /* Animations */
+    /* === Footer === */
+    footer {
+      text-align: center;
+      padding: 48px 0;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* === Animations === */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(40px); }
       to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    @keyframes scaleIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
-      50%      { box-shadow: 0 0 40px rgba(236, 72, 153, 0.5); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-12px); }
     }
 
     .reveal {
@@ -339,20 +404,11 @@
       transform: translateY(0);
     }
 
-    .reveal-fade {
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-
-    .reveal-fade.visible {
-      opacity: 1;
-    }
-
     .hero {
-      animation: fadeIn 0.8s ease forwards;
+      animation: fadeInUp 0.8s ease forwards;
     }
 
-    .badge {
+    .hero-badge {
       animation: fadeInUp 0.6s ease forwards;
     }
 
@@ -367,190 +423,203 @@
     .hero .btn-group {
       animation: fadeInUp 0.6s ease 0.45s both;
     }
-
-    .tutorial-card {
-      transition: all 0.3s ease;
-    }
-
-    .tutorial-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-    }
-
-    .tutorial-card .video-wrapper {
-      animation: glow 3s ease-in-out infinite;
-    }
-
-    .feature-card {
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .feature-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 12px 40px rgba(124, 58, 237, 0.15);
-    }
-
-    .step {
-      transition: all 0.3s ease;
-    }
-
-    .step:hover {
-      transform: translateX(6px);
-    }
-
-    .step-num {
-      transition: all 0.3s ease;
-    }
-
-    .step:hover .step-num {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
-    }
-
-    .btn-primary {
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 12px 50px rgba(124, 58, 237, 0.6);
-    }
-
-    .btn-outline {
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-outline:hover {
-      transform: translateY(-3px);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      color: var(--muted);
-      font-size: 14px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
   </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
+  <!-- Hero -->
+  <section class="hero">
+    <span class="hero-badge">Now completely free</span>
+    <h1>Vibe <span>Coding</span></h1>
+    <p>Build anything you want with AI. Zero gatekeeping. No sign-up. No credit card. No limits.</p>
+    <div class="btn-group">
+      <a href="#" class="btn btn-yellow">Start building — it's free</a>
+      <a href="#tutorial" class="btn btn-outline">Watch the guide</a>
+    </div>
+  </section>
 
-  <div class="container">
-    <!-- Hero -->
-    <section class="hero">
-      <span class="badge">Now completely free</span>
-      <h1>Vibe Coding</h1>
-      <p>Build anything you want with AI, zero gatekeeping. No sign-up required, no credit card, no limits.</p>
-      <div class="btn-group">
-        <a href="#" class="btn btn-primary">Start building — it's free</a>
-        <a href="#" class="btn btn-outline">See how it works</a>
+  <!-- What is Vibe Coding -->
+  <div class="section-dark">
+    <div class="section">
+      <div class="container">
+        <div class="reveal">
+          <span class="label">What is it</span>
+          <div class="yellow-line"></div>
+          <h2>Vibe coding is building software by describing what you want — <span style="color: var(--yellow);">nothing more</span>.</h2>
+          <p class="subtitle" style="margin-bottom: 0;">No boilerplate. No config files. No environment setup. You just talk to AI, and it builds. It's the fastest way to go from idea to working app.</p>
+        </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- Tutorial -->
-    <section>
-      <h2 class="reveal">How to vibe code with OpenCode</h2>
-      <p class="subtitle reveal">Follow along with these two short videos to build and deploy your own site.</p>
+  <!-- Tutorial -->
+  <div id="tutorial" class="section">
+    <div class="container">
+      <div class="reveal">
+        <span class="label">Walkthrough</span>
+        <div class="yellow-line"></div>
+        <h2>How to vibe code with OpenCode</h2>
+        <p class="subtitle">Follow along with these two videos. You'll go from zero to deployed in under 5 minutes.</p>
+      </div>
 
-      <div class="tutorial-card reveal">
-        <span class="label">Step 1</span>
-        <h3>Open your terminal</h3>
-        <p>Launch OpenCode by running this command in your terminal. <a href="https://opencode.ai/docs/web/" style="color: var(--accent2);">Learn more</a>.</p>
+      <div class="tutorial-step reveal">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <h3>Open your terminal</h3>
+        </div>
+        <p>Launch OpenCode by running this command. <a href="https://opencode.ai/docs/web/">Learn more →</a></p>
         <div class="code-block">opencode web</div>
       </div>
 
-      <div class="tutorial-card reveal">
-        <span class="label">Step 2</span>
-        <h3>Start the vibe code session</h3>
-        <p>Watch how to kick off a vibe coding session with AI — describe what you want and watch it build in real time.</p>
+      <div class="tutorial-step reveal">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <h3>Start the vibe code session</h3>
+        </div>
+        <p>Tell the AI what you want to build and watch it generate code in real time.</p>
         <div class="video-wrapper">
           <iframe src="https://www.youtube.com/embed/yqHR4P38q48" allowfullscreen></iframe>
         </div>
       </div>
 
-      <div class="tutorial-card reveal">
-        <span class="label">Step 3</span>
-        <h3>Build &amp; publish with Vercel</h3>
-        <p>Create your page and deploy it instantly to Vercel — no config needed.</p>
+      <div class="tutorial-step reveal">
+        <div class="step-header">
+          <div class="step-number">3</div>
+          <h3>Build &amp; publish with Vercel</h3>
+        </div>
+        <p>Deploy your finished site instantly — no config files, no commands, no hassle.</p>
         <div class="video-wrapper">
           <iframe src="https://www.youtube.com/embed/UrMxZjQjclk" allowfullscreen></iframe>
         </div>
       </div>
-    </section>
-
-    <!-- Features -->
-    <section>
-      <h2 class="reveal">Why vibe coding?</h2>
-      <p class="subtitle reveal">Because building software should feel like play, not paperwork.</p>
-      <div class="features-grid">
-        <div class="feature-card reveal">
-          <div class="feature-icon">⚡</div>
-          <h3>Instantly ship</h3>
-          <p>Describe what you want and watch it come to life in seconds. No boilerplate, no setup.</p>
-        </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">🎨</div>
-          <h3>Zero friction</h3>
-          <p>No accounts, no logins, no "start your free trial." Just open your browser and go.</p>
-        </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">🤝</div>
-          <h3>AI-native</h3>
-          <p>Code alongside models that actually understand your full codebase. Fix bugs, add features, refactor — all in conversation.</p>
-        </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">🌍</div>
-          <h3>Totally free</h3>
-          <p>No usage caps, no premium tiers, no "ask for credits." Everyone gets the full experience.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- How it works -->
-    <section>
-      <h2 class="reveal">How it works</h2>
-      <p class="subtitle reveal">Three steps to going from idea to deployed app.</p>
-      <div class="steps">
-        <div class="step reveal">
-          <div class="step-num">1</div>
-          <div>
-            <h3>Describe your idea</h3>
-            <p>Tell the AI what you want to build in plain English. "A landing page for my bakery" or "a todo app with dark mode."</p>
-          </div>
-        </div>
-        <div class="step reveal">
-          <div class="step-num">2</div>
-          <div>
-            <h3>Watch it build</h3>
-            <p>See your app generated in real time. Files appear, code runs, the browser updates — all automatically.</p>
-          </div>
-        </div>
-        <div class="step reveal">
-          <div class="step-num">3</div>
-          <div>
-            <h3>Iterate instantly</h3>
-            <p>Ask for changes, fix bugs, add features — all by typing what you want. No manual coding required.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section">
-      <h2 class="reveal">Start vibe coding now</h2>
-      <p class="reveal">No sign-up. No credit card. Just you, your ideas, and the best AI coding tools — for free.</p>
-      <div class="reveal">
-        <a href="#" class="btn btn-primary">Get started — it's free</a>
-      </div>
-    </section>
-
-    <footer>
-      Free Vibe Coding — built for the love of building.
-    </footer>
+    </div>
   </div>
+
+  <!-- Why vibe coding -->
+  <div class="section-dark">
+    <div class="section">
+      <div class="container">
+        <div class="reveal">
+          <span class="label">Why vibe coding</span>
+          <div class="yellow-line"></div>
+          <h2>Building should feel like play, not paperwork.</h2>
+          <p class="subtitle">The old way means weeks of setup. This way means minutes of typing.</p>
+        </div>
+
+        <div class="feature-row reveal">
+          <div class="icon">⚡</div>
+          <div>
+            <h3>Instantly ship</h3>
+            <p>Describe what you want and watch it come to life in seconds. No boilerplate, no setup, no waiting.</p>
+          </div>
+        </div>
+        <div class="feature-row reveal">
+          <div class="icon">🎨</div>
+          <div>
+            <h3>Zero friction</h3>
+            <p>No accounts, no logins, no "start your free trial." Just open your browser and go.</p>
+          </div>
+        </div>
+        <div class="feature-row reveal">
+          <div class="icon">🤝</div>
+          <div>
+            <h3>AI-native</h3>
+            <p>Code alongside models that actually understand your full project. Fix bugs, add features, refactor — all in conversation.</p>
+          </div>
+        </div>
+        <div class="feature-row reveal">
+          <div class="icon">🌍</div>
+          <div>
+            <h3>Totally free</h3>
+            <p>No usage caps, no premium tiers, no "ask for credits." Everyone gets the full experience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="section">
+    <div class="container">
+      <div class="reveal">
+        <span class="label">The process</span>
+        <div class="yellow-line"></div>
+        <h2>Three steps to deployed</h2>
+        <p class="subtitle">From idea to live site in the time it takes to drink your coffee.</p>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="num">01</div>
+        <div>
+          <h3>Describe your idea</h3>
+          <p>Tell the AI what you want to build in plain English. "A landing page for my bakery" or "a todo app with dark mode."</p>
+        </div>
+      </div>
+      <div class="how-step reveal">
+        <div class="num">02</div>
+        <div>
+          <h3>Watch it build</h3>
+          <p>See your app generated in real time. Files appear, code runs, the browser updates — all automatically.</p>
+        </div>
+      </div>
+      <div class="how-step reveal">
+        <div class="num">03</div>
+        <div>
+          <h3>Iterate instantly</h3>
+          <p>Ask for changes, fix bugs, add features — all by typing what you want. No manual coding required.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Totally free -->
+  <div class="section-dark">
+    <div class="section">
+      <div class="container">
+        <div class="reveal">
+          <span class="label">Pricing</span>
+          <div class="yellow-line"></div>
+          <h2 style="margin-bottom: 8px;">$0.<span style="color: var(--yellow);">00</span></h2>
+          <p class="subtitle" style="margin-bottom: 48px;">No tricks. No trials. No upsells. Just the best vibe coding tools, free for everyone.</p>
+        </div>
+        <div class="free-grid reveal">
+          <div class="free-item">
+            <h3>Unlimited projects</h3>
+            <p>Build as many things as you want. No project limits, no storage caps.</p>
+          </div>
+          <div class="free-item">
+            <h3>No credit card</h3>
+            <p>We don't ask. Not at sign-up, not ever. No "payment method required."</p>
+          </div>
+          <div class="free-item">
+            <h3>Full AI access</h3>
+            <p>You get the same models and capabilities as paid tools — completely free.</p>
+          </div>
+          <div class="free-item">
+            <h3>Deploy anywhere</h3>
+            <p>Vercel, Netlify, GitHub Pages — export and deploy however you want.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="container">
+      <h2 class="reveal">Start <span>vibe coding</span> now</h2>
+      <p class="reveal">No sign-up. No credit card. Just you, your ideas, and the best AI — for free.</p>
+      <div class="reveal">
+        <a href="#" class="btn btn-yellow">Get started — it's free</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      Free Vibe Coding — built for the love of building.
+    </div>
+  </footer>
+
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -561,7 +630,7 @@
       });
     }, { threshold: 0.15 });
 
-    document.querySelectorAll('.reveal').forEach((el, i) => {
+    document.querySelectorAll('.reveal').forEach((el) => {
       observer.observe(el);
     });
   </script>
