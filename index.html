@@ -378,6 +378,181 @@
       margin: 0 auto 40px;
     }
 
+    /* === Nav === */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 0 24px;
+    }
+
+    nav .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    nav .logo {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    nav .logo span {
+      color: var(--yellow);
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    nav .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    nav .nav-links a:hover {
+      color: var(--yellow);
+    }
+
+    .nav-cta {
+      padding: 8px 20px;
+      background: var(--yellow);
+      color: var(--black) !important;
+      border-radius: 6px;
+      font-weight: 800 !important;
+      font-size: 13px !important;
+    }
+
+    .nav-cta:hover {
+      background: #fff !important;
+      color: var(--black) !important;
+    }
+
+    @media (max-width: 600px) {
+      nav .nav-links { gap: 16px; }
+      nav .nav-links a:not(.nav-cta) { display: none; }
+    }
+
+    body {
+      padding-top: 60px;
+    }
+
+    /* === Use cases === */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .case-item {
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .case-item:hover {
+      border-color: var(--yellow);
+      transform: translateY(-4px);
+    }
+
+    .case-item .icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .case-item h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .case-item p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 600px) {
+      .cases-grid { grid-template-columns: 1fr; }
+    }
+
+    /* === FAQ === */
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 17px;
+      font-weight: 700;
+      text-align: left;
+      padding: 24px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-family: inherit;
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover {
+      color: var(--yellow);
+    }
+
+    .faq-question .arrow {
+      font-size: 14px;
+      color: var(--muted);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-question .arrow {
+      transform: rotate(45deg);
+      color: var(--yellow);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+      padding: 0;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding: 0 0 24px;
+    }
+
+    .faq-answer p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
     /* === Footer === */
     footer {
       text-align: center;
@@ -426,6 +601,17 @@
   </style>
 </head>
 <body>
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo">Vibe <span>Coding</span></a>
+      <ul class="nav-links">
+        <li><a href="#why">Why</a></li>
+        <li><a href="#tutorial">Tutorial</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#" class="nav-cta">Get started</a></li>
+      </ul>
+    </div>
+  </nav>
   <!-- Hero -->
   <section class="hero">
     <span class="hero-badge">Now completely free</span>
@@ -495,7 +681,7 @@
   </div>
 
   <!-- Why vibe coding -->
-  <div class="section-dark">
+  <div id="why" class="section-dark">
     <div class="section">
       <div class="container">
         <div class="reveal">
@@ -571,8 +757,42 @@
     </div>
   </div>
 
+  <!-- Use Cases -->
+  <div class="section">
+    <div class="container-wide">
+      <div class="reveal">
+        <span class="label">Use cases</span>
+        <div class="yellow-line"></div>
+        <h2>What people are building</h2>
+        <p class="subtitle">From landing pages to full-stack apps — vibe coding handles it all.</p>
+      </div>
+      <div class="cases-grid">
+        <div class="case-item reveal">
+          <div class="icon">🌐</div>
+          <h3>Landing pages</h3>
+          <p>Marketing sites, portfolio pages, product launches. Describe the vibe and get a published page in minutes.</p>
+        </div>
+        <div class="case-item reveal">
+          <div class="icon">📊</div>
+          <h3>Dashboards &amp; tools</h3>
+          <p>Internal admin panels, analytics views, expense trackers — anything with data, tables, and charts.</p>
+        </div>
+        <div class="case-item reveal">
+          <div class="icon">🤖</div>
+          <h3>AI-powered apps</h3>
+          <p>Chatbots, image generators, content tools. Wire up APIs and ship working prototypes fast.</p>
+        </div>
+        <div class="case-item reveal">
+          <div class="icon">📱</div>
+          <h3>Mobile-ready web apps</h3>
+          <p>Responsive PWAs, todo apps, habit trackers — full interactivity that works on any device.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Totally free -->
-  <div class="section-dark">
+  <div id="pricing" class="section-dark">
     <div class="section">
       <div class="container">
         <div class="reveal">
@@ -597,6 +817,67 @@
           <div class="free-item">
             <h3>Deploy anywhere</h3>
             <p>Vercel, Netlify, GitHub Pages — export and deploy however you want.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section-dark">
+    <div class="section">
+      <div class="container">
+        <div class="reveal">
+          <span class="label">FAQ</span>
+          <div class="yellow-line"></div>
+          <h2>Questions? We've got answers.</h2>
+          <p class="subtitle">The most common things people wonder about vibe coding.</p>
+        </div>
+        <div class="reveal">
+          <div class="faq-item">
+            <button class="faq-question">
+              Is it really free? No hidden costs?
+              <span class="arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes — completely free. No usage caps, no premium tiers, no "credits" system. Everyone gets the same full experience regardless of whether you've signed up or not.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Do I need to know how to code?
+              <span class="arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Nope. Vibe coding is designed for non-developers. You describe what you want in plain English and the AI builds it. If you're a developer, you can dive into the code too — it works both ways.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              What can I actually build with it?
+              <span class="arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Landing pages, dashboards, APIs, tools, prototypes, games — basically anything you can describe. If it can be built with HTML, CSS, and JavaScript, vibe coding can handle it.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              How is this different from GitHub Copilot?
+              <span class="arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Copilot is an in-editor autocomplete. OpenCode's vibe coding mode is a full conversational AI pair programmer — it sees your entire project, runs your code, and can make changes across multiple files based on a single request.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Can I deploy what I build?
+              <span class="arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes — export your project and deploy to Vercel, Netlify, GitHub Pages, or anywhere you'd normally host a web app. The code is yours.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -632,6 +913,13 @@
 
     document.querySelectorAll('.reveal').forEach((el) => {
       observer.observe(el);
+    });
+
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        item.classList.toggle('open');
+      });
     });
   </script>
 </body>
