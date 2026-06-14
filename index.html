@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Vibe Coding</title>
+  <style>
+    :root {
+      --bg: #0a0a1a;
+      --surface: #12122a;
+      --accent: #7c3aed;
+      --accent2: #ec4899;
+      --text: #e2e8f0;
+      --muted: #64748b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image:
+        linear-gradient(rgba(124, 58, 237, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      margin-bottom: 32px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 10vw, 96px);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 48px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 4px 30px rgba(124, 58, 237, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(124, 58, 237, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.15);
+      margin-left: 16px;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(124, 58, 237, 0.1);
+    }
+
+    @media (max-width: 600px) {
+      .hero .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .btn-outline { margin-left: 0; }
+    }
+
+    /* Sections */
+    section {
+      padding: 100px 0;
+    }
+
+    section h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    section .subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 500px;
+      margin: 0 auto 60px;
+    }
+
+    /* Features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* How it works */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+    }
+
+    .step h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .cta-section h2 {
+      font-size: 42px;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <div class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <span class="badge">Now completely free</span>
+      <h1>Vibe Coding</h1>
+      <p>Build anything you want with AI, zero gatekeeping. No sign-up required, no credit card, no limits.</p>
+      <div class="btn-group">
+        <a href="#" class="btn btn-primary">Start building — it's free</a>
+        <a href="#" class="btn btn-outline">See how it works</a>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section>
+      <h2>Why vibe coding?</h2>
+      <p class="subtitle">Because building software should feel like play, not paperwork.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Instantly ship</h3>
+          <p>Describe what you want and watch it come to life in seconds. No boilerplate, no setup.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>Zero friction</h3>
+          <p>No accounts, no logins, no "start your free trial." Just open your browser and go.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3>AI-native</h3>
+          <p>Code alongside models that actually understand your full codebase. Fix bugs, add features, refactor — all in conversation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h3>Totally free</h3>
+          <p>No usage caps, no premium tiers, no "ask for credits." Everyone gets the full experience.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section>
+      <h2>How it works</h2>
+      <p class="subtitle">Three steps to going from idea to deployed app.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Describe your idea</h3>
+            <p>Tell the AI what you want to build in plain English. "A landing page for my bakery" or "a todo app with dark mode."</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Watch it build</h3>
+            <p>See your app generated in real time. Files appear, code runs, the browser updates — all automatically.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Iterate instantly</h3>
+            <p>Ask for changes, fix bugs, add features — all by typing what you want. No manual coding required.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2>Start vibe coding now</h2>
+      <p>No sign-up. No credit card. Just you, your ideas, and the best AI coding tools — for free.</p>
+      <a href="#" class="btn btn-primary">Get started — it's free</a>
+    </section>
+
+    <footer>
+      Free Vibe Coding — built for the love of building.
+    </footer>
+  </div>
+</body>
+</html>
